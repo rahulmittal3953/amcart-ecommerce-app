@@ -1,18 +1,42 @@
-name: Docker Image CI
+name: React Vite → Node → Railway CI/CD
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-
-  build:
-
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Install Node
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Build React app
+      - name: Build React (Vite)
+        run: |
+          cd client
+          npm install
+          npm run build
+
+      # Install Railway CLI
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      # Deploy to Railway
+      - name: Deploy to Railway
+        run: |
+          railway up \
+            --service ${{ secrets.RAILWAY_SERVICE_ID }} \
+            --environment production \
+            --message "Deploy"
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
