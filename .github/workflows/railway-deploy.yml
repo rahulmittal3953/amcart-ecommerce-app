@@ -34,8 +34,9 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      # Deploy to Railway
-      - name: Deploy to Railway
+      # Deploy to Production Railway
+      - name: Deploy to Production
+        environment: feisty-creativity / production
         run: |
           railway variables set \
             VITE_DEPLOYMENT_ID=${{ env.deployment_guid }} \
