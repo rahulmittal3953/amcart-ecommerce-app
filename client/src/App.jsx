@@ -12,7 +12,7 @@ function AppContent({ user, onLogin, onLogout, cart, addToCart, updateQuantity, 
 
   // Show header only on shop and cart pages
   const showHeader = ['/shop', '/cart'].includes(location.pathname);
-
+  console.log("deploymentId----- " + deploymentId)
   return (
     <>
       <main>

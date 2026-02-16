@@ -13,6 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Generate Deployment GUID
+        id: guid
+        run: echo "deployment_guid=${{ github.run_number }}-${{ github.sha }}" >> $GITHUB_ENV
+
       # Install Node
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,7 +37,8 @@ jobs:
       # Deploy to Railway
       - name: Deploy to Railway
         run: |
-          railway up \
+          railway variables set \
+            VITE_DEPLOYMENT_ID=${{ env.deployment_guid }} \
             --service ${{ secrets.RAILWAY_SERVICE_ID }} \
             --environment production \
             --message "Deploy"
