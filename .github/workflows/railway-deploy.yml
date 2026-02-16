@@ -47,7 +47,7 @@ jobs:
             --service ${{ secrets.STAGE_RAILWAY_SERVICE_ID }} \
             --environment staging \
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.STAGE_RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
 
   deploy-to-production:
