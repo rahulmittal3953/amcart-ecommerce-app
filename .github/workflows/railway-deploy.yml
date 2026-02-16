@@ -41,7 +41,6 @@ jobs:
             VITE_DEPLOYMENT_ID=${{ env.deployment_guid }} \
             --service ${{ secrets.RAILWAY_SERVICE_ID }} \
             --environment production \
-            --message "Deploy"
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
