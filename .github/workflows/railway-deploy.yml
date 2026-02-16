@@ -31,15 +31,14 @@ jobs:
           npm install
           npm run build
 
-      # Install Railway CLI
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment: feisty-creativity / production
     steps:
+      # Install Railway CLI
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
         # Deploy to Production Railway
       - name: Deploy to Production
         run: |
